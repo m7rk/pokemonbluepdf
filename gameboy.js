@@ -9923,3 +9923,46 @@ var decode = base64ToString(pkbase)
 
 var gameboy = new Interface()
 gameboy.loadRom(decode);
+
+ 
+function draw()
+{
+    for(var v = 0; v != 10; v+=1)
+    {
+        gameboy.doFrame();
+    }
+
+
+	var scr = gameboy.getScreen()
+    var ptr = 0
+    for (let y=0; y < 144; y+=1) 
+    {
+        row = []
+        for(let x=0; x < 160; x+=1)
+        {
+            var rg = scr[ptr]
+            ptr +=4
+
+            // draw character based on this RGB
+            if (rg == 24) {
+                row.push("#");
+            }
+            if (rg == 82) {
+                row.push("b");
+            }
+            if (rg == 173) {
+                row.push("::");
+            }
+            if (rg == 239) {
+                row.push("_");
+            }
+        }
+        // combine row and write.
+        let row_str = row.join("")
+        globalThis.getField("field_"+(144-y-1)).value = row_str;
+    }
+}
+
+
+// uhhh 15 fps
+app.setInterval("draw()", 75);

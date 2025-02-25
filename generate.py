@@ -82,8 +82,8 @@ if __name__ == "__main__":
   with open("gameboy.js") as f:
     js = f.read()
 
-  #width = 160
-  width = 200
+  
+  width = 180
   height = 144
   scale = 2
 
@@ -97,22 +97,24 @@ if __name__ == "__main__":
     field = create_field(f"field_{i}", 0, i*scale + 220, width*scale-8, scale, "")
     fields.append(field)
 
+    fields += create_key_buttons([
+      {"name": "<", "key": "1", "x": 10, "y": 100, "width": 30, "height": 30},
+      {"name": ">", "key": "0", "x": 70, "y": 100, "width": 30, "height": 30},
+      {"name": "^", "key": "2", "x": 40, "y": 130, "width": 30, "height": 30},
+      {"name": "v", "key": "3", "x": 40, "y": 70, "width": 30, "height": 30},
+      {"name": "a", "key": "4", "x": 250, "y": 100, "width": 30, "height": 30},
+      {"name": "b", "key": "5", "x": 290, "y": 100, "width": 30, "height": 30},
+      {"name": "select", "key": "6", "x": 130, "y": 100, "width": 40, "height": 30},
+      {"name": "start", "key": "7", "x": 180, "y": 100, "width": 40, "height": 30},
+    ])
+
   """
     input_field = create_field(f"key_input", 450, 64, 150, 64, "Type here for keyboard controls.")
     input_field.AA = PdfDict()
     input_field.AA.K = create_script("key_pressed(event.change)")
     fields.append(input_field)
 
-    fields += create_key_buttons([
-      {"name": "<", "key": "a", "x": 320, "y": 102, "width": 30, "height": 30},
-      {"name": "^", "key": "w", "x": 358, "y": 140, "width": 30, "height": 30},
-      {"name": "v", "key": "s", "x": 358, "y": 102, "width": 30, "height": 30},
-      {"name": ">", "key": "d", "x": 396, "y": 102, "width": 30, "height": 30},
-      {"name": "esc", "key": "q", "x": 320, "y": 140, "width": 30, "height": 30},
-      {"name": "use", "key": "e", "x": 396, "y": 140, "width": 30, "height": 30},
-      {"name": "enter", "key": "z", "x": 320, "y": 64, "width": 30, "height": 30},
-      {"name": "fire", "key": " ", "x": 358, "y": 64, "width": 68, "height": 30},
-    ])
+
 
     page.Contents = PdfDict()
     page.Contents.stream = "\n".join([
